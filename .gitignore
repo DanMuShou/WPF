@@ -1,0 +1,114 @@
+# Visual Studio
+.vs/
+obj/
+bin/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider
+.idea/
+*.csproj.user
+*.sln.iml
+
+# MS Build
+[Oo]bj/
+[Bb]in/
+*.msi
+*.msix
+*.msixbundle
+**/AppPackages/
+**/BundleArtifacts/
+
+# Visual Studio 2015/2017 cache/options
+/.vs/
+
+# Visual Studio 2019+ cache/options
+.vscode/
+*.openxml
+*.vshost.*
+
+# ReSharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# MSTest
+TestResults/
+
+# Build Results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+build/
+bld/
+[Bb]uilds/
+*.build.csproj.nuget.g.props
+*.build.csproj.nuget.g.targets
+
+# Debug files
+*.pdb
+*.dbg
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# StyleCop
+StyleCopReport.xml
+
+# Files built by Visual Studio
+*.exe
+*.dll
+*.exe.config
+*.dll.config
+
+# ClickOnce
+publish/
+
+# Backup & temp files
+*.bak
+*.tmp
+*.log
+*.vspscc
+*.vssscc
+
+# NuGet
+packages/
+*.nupkg
+project.assets.json
+project.packagespec.json
+*.nuget.props
+*.nuget.targets
+
+# Unit test
+*.visualstate.xml
+TestResult.xml
+
+# CodeRush
+*.cr/
+
+# Mr.-Money
+*.moneys/
+
+# Web project files
+*.publish.xml
+*.pubxml
+*.pubxml.user
+
+# Node.js
+node_modules/
+
+# TypeScript
+*.tsbuildinfo
+
+# macOS
+.DS_Store
+
+# Thumbs.db
+Thumbs.db

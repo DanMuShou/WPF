@@ -1,0 +1,81 @@
+﻿<Window
+    x:Class="Chapter12.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Chapter12"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="MainWindow"
+    Width="800"
+    Height="450"
+    mc:Ignorable="d">
+
+    <Window.Resources>
+        <Style x:Key="OutLineBorder" TargetType="Border">
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="Margin" Value="3" />
+        </Style>
+
+        <RadialGradientBrush x:Key="BackgroundBrush" Center="1 0.5" GradientOrigin="1 0.5" Opacity="0.5" RadiusX="1.5" RadiusY="1">
+            <GradientStop Offset="0.1" Color="CadetBlue" />
+            <GradientStop Offset="0.8" Color="White" />
+        </RadialGradientBrush>
+
+    </Window.Resources>
+
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+
+        <Border
+            x:Name="MainBorder"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Style="{StaticResource OutLineBorder}">
+            <Canvas x:Name="MainCanvas" />
+        </Border>
+
+        <Border
+            Grid.Column="1"
+            Background="{StaticResource BackgroundBrush}"
+            Style="{StaticResource OutLineBorder}">
+            <StackPanel HorizontalAlignment="Center " VerticalAlignment="Center">
+                <TextBlock
+                    Margin="0,30"
+                    HorizontalAlignment="Center"
+                    Text="Name" />
+                <TextBlock
+                    x:Name="TextFallTime"
+                    Margin="0,0"
+                    HorizontalAlignment="Center"
+                    Text="Fall Time : " />
+                <TextBlock
+                    x:Name="TextNextBomb"
+                    Margin="0,0"
+                    HorizontalAlignment="Center"
+                    Text="Next Time : " />
+                <TextBlock
+                    x:Name="TextScores"
+                    Margin="0,10"
+                    HorizontalAlignment="Center"
+                    Text="分数 : NULL" />
+                <TextBlock
+                    x:Name="TextTimeInfo"
+                    Margin="0,10"
+                    HorizontalAlignment="Center"
+                    Text="下一次时间 : NULL s" />
+                <Button
+                    x:Name="BtnStartGame"
+                    Margin="0,30"
+                    Click="But_OnGameStart"
+                    Content="Start" />
+            </StackPanel>
+
+        </Border>
+
+    </Grid>
+</Window>

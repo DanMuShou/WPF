@@ -1,0 +1,36 @@
+﻿<!--window只有一个object Content, 只能存储一个对象-->
+<Window x:Class="Chapter01.GridWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Chapter01"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterOwner"
+        Title="Window1" Height="450" Width="800">
+    <!--Grid 默认只有一行一列-->
+    <Grid ShowGridLines="True">
+        <!--行定义-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="300"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <!--列定义-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="200"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        
+        <!--默认为0行-->
+
+        <Button Grid.Row="0" Grid.Column="0" Height="20" Width="100">按钮01</Button>
+        <Button Grid.Row="0" Grid.ColumnSpan="3" Height="20" Width="100">按钮02</Button>
+        <Button Grid.Row="1" Grid.Column="0" Height="20" Width="100">按钮03</Button>
+        <Button Grid.Row="1" Grid.Column="1" Height="20" Width="100">按钮04</Button>
+        <Image Grid.RowSpan="3" Grid.Column="2" Source="/Image/精灵-0001.png" />
+    </Grid>
+</Window>
+ 

@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net8.0-windows</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UseWPF>true</UseWPF>
+        <UICulture>en-US</UICulture>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <None Remove="Image\精灵-0001.png" />
+      <Resource Include="Image\精灵-0001.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Page Update="Resources\MyLangageen.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,44 @@
+﻿<Window
+    x:Class="Chapter03.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Chapter03"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="MainWindow"
+    Width="800"
+    Height="450"
+    mc:Ignorable="d">
+    <Grid
+        x:Name="Grid"
+        Width="600"
+        Height=" 300"
+        MouseDown="GirdMouseDown"
+        MouseMove="GridMouseMove"
+        MouseUp="GridMouseUp">
+        <!--  路由事件:  -->
+        <!--  1. 冒泡事件(从里向外 自身开始)  -->
+        <!--  2. 隧道事件(预览事件 从外向里根开始)  -->
+        <!--  3. 直接事件  -->
+
+        <!--  事件(作用角度):  -->
+        <!--  1. 生命周期事件  -->
+        <!--  2. 鼠标事件(键盘, 鼠标, 手写笔, 触摸屏)  -->
+
+        <!--  鼠标左键是一个冒泡路由事件  -->
+        <StackPanel Background="Blue" PreviewMouseRightButtonDown="borderPrsseDumn">
+            <Border
+                Width="120"
+                Height="40"
+                Background="Red"
+                MouseLeftButtonDown="Border_UIElement_OnMouseLeftButtonDown" />
+
+            <Border
+                Width="120"
+                Height="40"
+                Background="Red"
+                PreviewMouseRightButtonDown="borderPreDumn" />
+        </StackPanel>
+        <TextBlock x:Name="Info" />
+    </Grid>
+</Window>

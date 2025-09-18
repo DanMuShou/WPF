@@ -1,0 +1,125 @@
+﻿<Window
+    x:Class="Chapter09_Wpf.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:custCanvas="clr-namespace:Chapter09_Wpf.CustCanvas"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Chapter09_Wpf"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="MainWindow"
+    Width="800"
+    Height="450"
+    mc:Ignorable="d">
+
+    <Window.Resources>
+        <GeometryGroup x:Key="GeometryGroupDelete">
+            <PathGeometry>
+                <PathFigure StartPoint="0 0">
+                    <LineSegment Point="20 20" />
+                </PathFigure>
+                <PathFigure StartPoint="0 20">
+                    <LineSegment Point="20 0" />
+                </PathFigure>
+            </PathGeometry>
+        </GeometryGroup>
+
+        <GeometryGroup x:Key="GeometryGroupSelectMore" FillRule="Nonzero">
+            <RectangleGeometry Rect="0 0 20 20" />
+            <RectangleGeometry Rect="8 8 20 20" />
+        </GeometryGroup>
+
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <!--  左侧功能按钮区  -->
+        <ToolBarTray
+            Grid.Row="0"
+            Grid.Column="0"
+            Orientation="Vertical">
+
+            <ToolBar>
+                <RadioButton
+                    x:Name="CmdAdd"
+                    Margin="0,3"
+                    IsChecked="True">
+                    <StackPanel>
+                        <Rectangle
+                            Width="30 "
+                            Height="30"
+                            Fill="Bisque"
+                            Stroke="CornflowerBlue"
+                            StrokeThickness="3" />
+                        <TextBlock HorizontalAlignment="Center" Text="添加方块" />
+                    </StackPanel>
+                </RadioButton>
+
+                <RadioButton x:Name="CmdSelectOne" Margin="0,3">
+                    <StackPanel>
+                        <Rectangle
+                            Width="30 "
+                            Height="30"
+                            Fill="Bisque"
+                            Stroke="CornflowerBlue"
+                            StrokeThickness="3" />
+                        <TextBlock HorizontalAlignment="Center" Text="移动" />
+                    </StackPanel>
+                </RadioButton>
+
+                <RadioButton x:Name="CmdDelete" Margin="0,3">
+                    <StackPanel>
+                        <Path
+                            HorizontalAlignment="Center"
+                            Data="{StaticResource GeometryGroupDelete}"
+                            Stroke="Crimson"
+                            StrokeEndLineCap="Round"
+                            StrokeStartLineCap="Round"
+                            StrokeThickness="4" />
+                        <TextBlock HorizontalAlignment="Center" Text="删除" />
+                    </StackPanel>
+                </RadioButton>
+
+
+                <RadioButton x:Name="CmdSelectMore" Margin="0,3">
+                    <StackPanel>
+                        <Path
+                            Width="30"
+                            Height="30"
+                            HorizontalAlignment="Center"
+                            Data="{StaticResource GeometryGroupSelectMore}"
+                            Fill="Bisque"
+                            Stroke="CornflowerBlue"
+                            StrokeEndLineCap="Round"
+                            StrokeStartLineCap="Round"
+                            StrokeThickness="4" />
+                        <TextBlock HorizontalAlignment="Center" Text="选择多个" />
+                    </StackPanel>
+                </RadioButton>
+
+                <TextBlock
+                    x:Name="TestText"
+                    Width="40"
+                    Text="11111111111111 11111111111111"
+                    TextWrapping="Wrap" />
+            </ToolBar>
+        </ToolBarTray>
+
+        <!--  右侧实现区  -->
+        <Border
+            Grid.Row="0"
+            Grid.Column="1"
+            BorderBrush="CadetBlue"
+            BorderThickness="3">
+            <custCanvas:DrawCanvas
+                x:Name="DrawCanvas"
+                Background="White"
+                MouseLeftButtonDown="DrawCanvas_OnMouseLeftButtonDown"
+                MouseLeftButtonUp="DrawCanvas_OnMouseLeftButtonUp"
+                MouseMove="DrawCanvas_OnMouseMove" />
+        </Border>
+    </Grid>
+</Window>

@@ -1,0 +1,180 @@
+﻿<Window
+    x:Class="Chapter01.MyBorder"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Chapter01"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="MyBorder"
+    Width="800"
+    Height="450"
+    mc:Ignorable="d">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+
+        <Border
+            Grid.RowSpan="3"
+            Grid.Column="1"
+            Width="4 "
+            Background="Blue"
+            BorderBrush="Red"
+            BorderThickness="1" />
+
+        <Border
+            Grid.Row="1"
+            Grid.ColumnSpan="3"
+            Height="4"
+            Background="Blue"
+            BorderBrush="Red"
+            BorderThickness="1" />
+
+        <WrapPanel
+            Grid.Row="0"
+            Grid.Column="0"
+            Orientation="Vertical">
+            <Button
+                Width="150"
+                Height="40"
+                Margin="10"
+                Content="Btn01" />
+            <Button
+                Width="150"
+                Height="40"
+                Margin="10"
+                Content="Btn02" />
+            <Button
+                Width="150"
+                Height="40"
+                Margin="10"
+                Content="Btn03" />
+            <Button
+                Width="150"
+                Height="40"
+                Margin="10"
+                Content="Btn04" />
+            <Button
+                Width="150"
+                Height="40"
+                Margin="10"
+                Content="Btn05" />
+            <Button
+                Width="150"
+                Height="40"
+                Margin="10"
+                Content="Btn06" />
+            <Button
+                Width="150"
+                Height="40"
+                Margin="10"
+                Content="Btn07" />
+        </WrapPanel>
+
+        <!--  停靠面板  -->
+        <DockPanel
+            Grid.Row="0"
+            Grid.Column="2"
+            Margin="10"
+            LastChildFill="True">
+            <StackPanel DockPanel.Dock="Top">
+                <Button Content="Top1" />
+                <Button Content="Top2" />
+            </StackPanel>
+            <Button Content="Down" DockPanel.Dock="Bottom" />
+            <Button Content="Left" DockPanel.Dock="Left" />
+            <Button Content="Right" DockPanel.Dock="Right" />
+            <Button
+                Width="100"
+                Background="Red"
+                Content="Center context" />
+        </DockPanel>
+
+        <UniformGrid
+            Grid.Row="2"
+            Grid.Column="0"
+            Columns="3"
+            FirstColumn="2">
+            <Button
+                Width="50"
+                Height="50"
+                Content="Btn10" />
+            <Button
+                Width="50"
+                Height="50"
+                Content="Btn10" />
+            <Button
+                Width="50"
+                Height="50"
+                Content="Btn10" />
+            <Button
+                Width="50"
+                Height="50"
+                Content="Btn10" />
+            <Button
+                Width="50"
+                Height="50"
+                Content="Btn10" />
+            <Button
+                Width="50"
+                Height="50"
+                Content="Btn10" />
+            <Button
+                Width="50"
+                Height="50"
+                Content="Btn10" />
+            <Button
+                Width="50"
+                Height="50"
+                Content="Btn10" />
+            <Button
+                Width="50"
+                Height="50"
+                Content="Btn10" />
+
+        </UniformGrid>
+
+        <!--  画布  -->
+        <Canvas Grid.Row="2" Grid.Column="2">
+            <Button
+                Width="100"
+                Height="40"
+                Panel.ZIndex="1"
+                Content="Btn11" />
+            <Button
+                Canvas.Top="90"
+                Width="100"
+                Height="40"
+                Content="Btn12" />
+            <Button
+                Canvas.Right="30"
+                Width="100"
+                Height="40"
+                Content="Btn13" />
+            <Button
+                Canvas.Bottom="100"
+                Width="100"
+                Height="40"
+                Content="Btn14" />
+            <Button
+                Canvas.Left="200"
+                Canvas.Top="90"
+                Width="100"
+                Height="40"
+                Content="Btn15" />
+            <Button
+                Canvas.Left="200"
+                Canvas.Top="150"
+                Width="100"
+                Height="40"
+                Content="Btn16" />
+        </Canvas>
+    </Grid>
+</Window>

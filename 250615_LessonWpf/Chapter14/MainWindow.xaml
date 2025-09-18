@@ -1,0 +1,126 @@
+﻿<Window
+    x:Class="Chapter14.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Chapter14"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    Title="MainWindow"
+    Width="800"
+    Height="450"
+    mc:Ignorable="d">
+
+    <Window.Resources>
+        <sys:String x:Key="String01">
+            我是弹幕兽
+        </sys:String>
+        <x:Array x:Key="Array01" Type="sys:String">
+            <sys:String>
+                Dan
+            </sys:String>
+            <sys:String>
+                Dan!!
+            </sys:String>
+        </x:Array>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.Column="0">
+            <TextBlock Text="{Binding Source={StaticResource String01}}" />
+            <TextBlock Text="{StaticResource String01}" />
+            <TextBlock DataContext="{StaticResource String01}" Text="{Binding}" />
+
+            <ListBox ItemsSource="{StaticResource Array01}" />
+        </StackPanel>
+
+        <StackPanel
+            Grid.Row="0"
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            HorizontalAlignment="Center"
+            Orientation="Horizontal">
+            <ComboBox
+                x:Name="ComboBox0101"
+                Width="100"
+                Height="20"
+                Margin="10,0"
+                DisplayMemberPath="Sheng"
+                IsEditable="True"
+                ItemsSource="{Binding}"
+                SelectionChanged="ComboBox0101_OnSelectionChanged"
+                Text="111" />
+            <ComboBox
+                x:Name="ComboBox0102"
+                Width="100"
+                Height="20"
+                Margin="10,0" />
+            <ComboBox
+                x:Name="ComboBox0103"
+                Width="100"
+                Height="20"
+                Margin="10,0" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="0">
+            <TextBox x:Name="TextBox1001">
+                <TextBox.Text>
+                    <Binding Path="Price">
+                        <Binding.ValidationRules>
+                            <ExceptionValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <TextBox x:Name="TextBox1002">
+                <TextBox.Text>
+                    <Binding Path="Price">
+                        <Binding.ValidationRules>
+                            <local:MyExceptionValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <TextBox x:Name="TextBox1003">
+                <TextBox.Text>
+                    <Binding Path="Price" ValidatesOnDataErrors="True" />
+                </TextBox.Text>
+            </TextBox>
+            <Button Click="Btn1001_OnClick" Content="Get info" />
+            <TextBlock Foreground="Red" Text="{Binding ElementName=TextBox1001, Path=(Validation.Errors)[0].ErrorContent}" />
+            <TextBlock Foreground="Red" Text="{Binding ElementName=TextBox1002, Path=(Validation.Errors)[0].ErrorContent}" />
+            <TextBlock Foreground="Red" Text="{Binding ElementName=TextBox1003, Path=(Validation.Errors)[0].ErrorContent}" />
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <TextBlock x:Name="TextBlock1101" Text="{Binding Price}" />
+            <TextBlock x:Name="TextBlock1102" Text="{Binding Price}" />
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="2">
+            <StackPanel.BindingGroup>
+                <BindingGroup x:Name="BindingGroup1201">
+                    <BindingGroup.ValidationRules>
+                        <local:MyGroupValidationRule />
+                    </BindingGroup.ValidationRules>
+                </BindingGroup>
+            </StackPanel.BindingGroup>
+
+            <TextBox x:Name="TextBox1203" Text="{Binding Name, Mode=TwoWay}" />
+            <TextBox x:Name="TextBox1201" Text="{Binding Price, Mode=TwoWay}" />
+            <TextBox x:Name="TextBox1202" Text="{Binding Count, Mode=TwoWay}" />
+
+            <Button Click="Btn1201_OnClick" Content="To do" />
+        </StackPanel>
+
+    </Grid>
+</Window>

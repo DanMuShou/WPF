@@ -1,0 +1,20 @@
+﻿<Window
+    x:Class="Chapter02.MyAttached"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Chapter02"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="MyAttached"
+    Width="800"
+    Height="450"
+    mc:Ignorable="d">
+    <Grid Background="Blue">
+        <PasswordBox
+            Width="100"
+            Height="40"
+            local:MyPasswordAttach.IsOpen="True"
+            local:MyPasswordAttach.PasswordProperty="1234"
+            PasswordChar="#  " />
+    </Grid>
+</Window>

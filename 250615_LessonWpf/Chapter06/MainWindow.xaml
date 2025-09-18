@@ -1,0 +1,55 @@
+﻿<Window
+    x:Class="Chapter06.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cmd="CustomCommandByRoutedCommand"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Chapter06"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="MainWindow"
+    Width="800"
+    Height="450"
+    mc:Ignorable="d">
+
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.New" Executed="Executed_OnApplicationNeedNew" />
+        <CommandBinding Command="local:CustomCommandByRoutedCommand.Query" Executed="Executed_OnCustomCommand" />
+    </Window.CommandBindings>
+    <Window.Resources>
+        <local:CustomCommand
+            x:Key="CusCommand"
+            CanExecuteChanged="CusCommand_OnCanExecuteChanged"
+            MyAction="TestActionFuncEx"
+            MyActionWithParameter="TestActionWithParameterFuncEx"
+            MyFunc="TestFunc"
+            MyFuncWithParameter="TestFuncWithParameter" />
+    </Window.Resources>
+
+    <Grid Background="DarkGray">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.Column="0">
+            <Button Click="Btn0001_Click" Content="Btn" />
+            <Button
+                Command="ApplicationCommands.New"
+                CommandTarget="{Binding ElementName=Btn0001}"
+                Content="BtnCommandSource" />
+            <Button x:Name="Btn0001" Content="BtnCommandTarget" />
+            <Button Command="local:CustomCommandByRoutedCommand.Query" Content="BtnCustomCommandSource" />
+            <Button
+                Command="{StaticResource CusCommand}"
+                CommandParameter="牛牛牛"
+                Content="BtnCustomCommand" />
+        </StackPanel>
+    </Grid>
+</Window>
