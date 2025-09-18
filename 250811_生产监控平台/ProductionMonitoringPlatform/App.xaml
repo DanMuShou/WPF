@@ -1,0 +1,16 @@
+﻿<Application
+    x:Class="ProductionMonitoringPlatform.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:ProductionMonitoringPlatform"
+    StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <FontFamily x:Key="MapleMono">pack://application:,,,/Resources/MapleMono-NF-CN-Medium.ttf#Maple Mono NF CN</FontFamily>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Dictionary/OperateBtnStyleDic.xaml" />
+                <ResourceDictionary Source="Dictionary/BtnStyleDic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
