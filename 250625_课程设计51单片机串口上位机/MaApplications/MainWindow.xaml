@@ -1,0 +1,139 @@
+﻿<Window
+    x:Class="MaApplications.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="MainWindow"
+    Width="900"
+    Height="600"
+    FontFamily="Maple Mono NF CN Medium"
+    mc:Ignorable="d">
+    <Grid Margin="15">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4*" />
+            <RowDefinition Height="5*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel
+            Grid.Row="0"
+            Grid.Column="0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top">
+            <StackPanel Margin="0,10" Orientation="Horizontal">
+                <Label
+                    Width="90"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Content="串口名称 :" />
+                <ComboBox
+                    x:Name="ComboBoxPortNames"
+                    Width="100"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top" />
+            </StackPanel>
+            <StackPanel Margin="0,10" Orientation="Horizontal">
+                <Label
+                    Width="90"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Content="波特率   :" />
+                <ComboBox
+                    x:Name="ComboBoxBaudRate"
+                    Width="100"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top" />
+            </StackPanel>
+            <StackPanel Margin="0,10" Orientation="Horizontal">
+                <Label
+                    Width="90"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Content="数据位   :" />
+                <ComboBox
+                    x:Name="ComboBoxDataBits"
+                    Width="100"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top" />
+            </StackPanel>
+            <StackPanel Margin="0,10" Orientation="Horizontal">
+                <Label
+                    Width="90"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Content="停止位   :" />
+                <ComboBox
+                    x:Name="ComboBoxStopBits"
+                    Width="100"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top" />
+            </StackPanel>
+            <StackPanel Margin="0,10" Orientation="Horizontal">
+                <Label
+                    Width="90"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Content="校验位   :" />
+                <ComboBox
+                    x:Name="ComboBoxParity"
+                    Width="100"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top" />
+            </StackPanel>
+        </StackPanel>
+        <TextBox
+            x:Name="TextBoxLogs"
+            Grid.Row="0"
+            Grid.Column="1"
+            Margin="10,5"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            IsReadOnly="True"
+            VerticalScrollBarVisibility="Visible" />
+
+        <StackPanel
+            Grid.Row="1"
+            Grid.Column="0"
+            Orientation="Vertical">
+            <Button
+                Width="100"
+                Margin="0,5"
+                HorizontalAlignment="Left"
+                Click="BtnRefreshPortOnClick"
+                Content="刷新串口" />
+            <Button
+                Width="100"
+                Margin="0,5"
+                HorizontalAlignment="Left"
+                Click="BtnCreatePortOnClick"
+                Content="创建串口" />
+            <Button
+                Width="100"
+                Margin="0,5"
+                HorizontalAlignment="Left"
+                Click="BtnOpenPortOnClick"
+                Content="打开串口" />
+            <Button
+                Width="100"
+                Margin="0,5"
+                HorizontalAlignment="Left"
+                Click="BtnClosePortOnClick"
+                Content="关闭串口" />
+        </StackPanel>
+
+        <StackPanel
+            Grid.Row="1"
+            Grid.Column="1"
+            Orientation="Vertical">
+            <Label x:Name="Label1" />
+            <Label x:Name="Label2" />
+            <Label x:Name="Label3" />
+
+        </StackPanel>
+    </Grid>
+</Window>
