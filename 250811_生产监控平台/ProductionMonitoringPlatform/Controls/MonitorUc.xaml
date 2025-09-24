@@ -6,7 +6,9 @@
   xmlns:local="clr-namespace:ProductionMonitoringPlatform.Controls"
   xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-  xmlns:system="clr-namespace:System;assembly=System.Runtime"
+  xmlns:vm="clr-namespace:ProductionMonitoringPlatform.ViewModels"
+  x:Name="MonitorUserControl"
+  d:DataContext="{d:DesignInstance Type=vm:MainWindowViewModel}"
   d:DesignHeight="1000"
   d:DesignWidth="1000"
   mc:Ignorable="d"
@@ -104,7 +106,7 @@
       </Setter>
     </Style>
   </UserControl.Resources>
-  <Grid>
+  <Grid Margin="16,8">
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto" />
       <RowDefinition />
@@ -152,7 +154,7 @@
         <ItemsControl
           Margin="0,0,16,0"
           ItemTemplate="{StaticResource MachineCountTemplate}"
-          ItemsSource="{Binding MachineModel.MachineCount}"
+          ItemsSource="{Binding CapacityModel.MachineCount}"
         >
           <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
@@ -164,7 +166,7 @@
         <ItemsControl
           Margin="0,0,16,0"
           ItemTemplate="{StaticResource MachineCountTemplate}"
-          ItemsSource="{Binding MachineModel.ProductCount}"
+          ItemsSource="{Binding CapacityModel.ProductCount}"
         >
           <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
@@ -176,7 +178,7 @@
         <ItemsControl
           Margin="0,0,16,0"
           ItemTemplate="{StaticResource MachineCountTemplate}"
-          ItemsSource="{Binding MachineModel.FailuresCount}"
+          ItemsSource="{Binding CapacityModel.FailuresCount}"
         >
           <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
@@ -601,5 +603,105 @@
         </GroupBox>
       </Grid>
     </Grid>
+    <ItemsControl Grid.Row="2" Margin="10,0" ItemsSource="{Binding WorkShopLists}">
+      <ItemsControl.ItemsPanel>
+        <ItemsPanelTemplate>
+          <UniformGrid Rows="1" />
+        </ItemsPanelTemplate>
+      </ItemsControl.ItemsPanel>
+      <ItemsControl.ItemTemplate>
+        <DataTemplate>
+          <Border
+            Margin="4,0"
+            Padding="4"
+            Background="#2999"
+            BorderBrush="#999"
+            BorderThickness="0,1,0,0"
+          >
+            <Grid>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="30*" />
+                <RowDefinition />
+              </Grid.RowDefinitions>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="90" />
+                <ColumnDefinition />
+              </Grid.ColumnDefinitions>
+              <!--  第一行  -->
+              <TextBlock
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="10,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Text="{Binding WorkShopName}"
+              />
+              <TextBlock
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="10,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+              >
+                <Hyperlink
+                  Command="{Binding ElementName=MonitorUserControl, Path=DataContext.ShowDetailUcCommand}"
+                  TextDecorations="None"
+                  >[详情]</Hyperlink
+                >
+              </TextBlock>
+              <!--  第二行  -->
+              <StackPanel
+                Grid.Row="1"
+                Grid.Column="0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+              >
+                <TextBlock FontSize="10" Text="机台总数" />
+                <TextBlock
+                  Margin="0,5"
+                  HorizontalAlignment="Center"
+                  FontSize="30"
+                  Text="{Binding TotalCount}"
+                />
+              </StackPanel>
+              <UniformGrid Grid.Row="1" Grid.Column="1">
+                <StackPanel>
+                  <TextBlock
+                    HorizontalAlignment="Center"
+                    FontSize="16"
+                    Text="{Binding WorkingCount}"
+                  />
+                  <TextBlock HorizontalAlignment="Center" FontSize="10" Text="作业" />
+                </StackPanel>
+                <StackPanel>
+                  <TextBlock
+                    HorizontalAlignment="Center"
+                    FontSize="16"
+                    Text="{Binding WaitCount}"
+                  />
+                  <TextBlock HorizontalAlignment="Center" FontSize="10" Text="等待" />
+                </StackPanel>
+                <StackPanel>
+                  <TextBlock
+                    HorizontalAlignment="Center"
+                    FontSize="16"
+                    Text="{Binding WrongCount}"
+                  />
+                  <TextBlock HorizontalAlignment="Center" FontSize="10" Text="故障" />
+                </StackPanel>
+                <StackPanel>
+                  <TextBlock
+                    HorizontalAlignment="Center"
+                    FontSize="16"
+                    Text="{Binding StopCount}"
+                  />
+                  <TextBlock HorizontalAlignment="Center" FontSize="10" Text="停机" />
+                </StackPanel>
+              </UniformGrid>
+            </Grid>
+          </Border>
+        </DataTemplate>
+      </ItemsControl.ItemTemplate>
+    </ItemsControl>
   </Grid>
 </UserControl>

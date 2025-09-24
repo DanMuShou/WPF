@@ -1,30 +1,27 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-    <PropertyGroup>
-        <OutputType>WinExe</OutputType>
-        <TargetFramework>net8.0-windows</TargetFramework>
-        <Nullable>enable</Nullable>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <UseWPF>true</UseWPF>
-    </PropertyGroup>
-
-    <ItemGroup>
-      <None Remove="Resources\Images\ic_public_cancel_filled.png" />
-      <Resource Include="Resources\Images\ic_public_cancel_filled.png" />
-      <None Remove="Resources\Images\ic_screenshot_line.png" />
-      <Resource Include="Resources\Images\ic_screenshot_line.png" />
-      <None Remove="Resources\Images\ic_screenshot_rectangle.png" />
-      <Resource Include="Resources\Images\ic_screenshot_rectangle.png" />
-      <None Remove="Resources\Images\Logo.png" />
-      <Resource Include="Resources\Images\Logo.png" />
-      <None Remove="Resources\Images\ic_public_view_list_filled.png" />
-      <Resource Include="Resources\Images\ic_public_view_list_filled.png" />
-      <None Remove="Resources\Images\ic_questionnaire.png" />
-      <Resource Include="Resources\Images\ic_questionnaire.png" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
-    </ItemGroup>
-
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Resources\Images\ic_public_cancel_filled.png" />
+    <Resource Include="Resources\Images\ic_public_cancel_filled.png" />
+    <None Remove="Resources\Images\ic_screenshot_line.png" />
+    <Resource Include="Resources\Images\ic_screenshot_line.png" />
+    <None Remove="Resources\Images\ic_screenshot_rectangle.png" />
+    <Resource Include="Resources\Images\ic_screenshot_rectangle.png" />
+    <None Remove="Resources\Images\Logo.png" />
+    <Resource Include="Resources\Images\Logo.png" />
+    <None Remove="Resources\Images\ic_public_view_list_filled.png" />
+    <Resource Include="Resources\Images\ic_public_view_list_filled.png" />
+    <None Remove="Resources\Images\ic_questionnaire.png" />
+    <Resource Include="Resources\Images\ic_questionnaire.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+  </ItemGroup>
 </Project>

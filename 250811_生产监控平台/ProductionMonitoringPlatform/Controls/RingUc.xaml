@@ -1,0 +1,35 @@
+﻿<UserControl
+  x:Class="ProductionMonitoringPlatform.Controls.RingUc"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:local="clr-namespace:ProductionMonitoringPlatform.Controls"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  x:Name="UserControl"
+  d:DesignHeight="300"
+  d:DesignWidth="300"
+  mc:Ignorable="d"
+>
+  <Grid x:Name="MainGrid">
+    <Ellipse
+      Width="{Binding ElementName=MainGrid, Path=ActualWidth}"
+      Height="{Binding ElementName=MainGrid, Path=ActualHeight}"
+      Stroke="#4fff"
+      StrokeThickness="8"
+    />
+    <Path
+      x:Name="RingPath"
+      Stroke="DarkOrange"
+      StrokeEndLineCap="Round"
+      StrokeStartLineCap="Round"
+      StrokeThickness="7"
+    />
+    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White">
+      <Run
+        FontSize="22"
+        Text="{Binding ElementName=UserControl, Path=PercentValue, StringFormat={}{0:#}}"
+      />
+      <Run Text="%" />
+    </TextBlock>
+  </Grid>
+</UserControl>

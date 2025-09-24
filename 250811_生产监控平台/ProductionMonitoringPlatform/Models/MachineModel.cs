@@ -1,28 +1,55 @@
-﻿using ProductionMonitoringPlatform.Models.Base;
+﻿using System.Windows.Media;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace ProductionMonitoringPlatform.Models;
 
-public class MachineModel : NotifyBaseModel
+internal enum MachineStatusEnum
 {
-    private string _machineCount = "Null";
+    Working,
+    Waiting,
+    Wrong,
+    Stop,
+}
 
-    public string MachineCount
+public partial class MachineModel : ObservableObject
+{
+    [ObservableProperty]
+    private string _machineName = "Null";
+
+    [ObservableProperty]
+    private string _status = nameof(MachineStatusEnum.Stop);
+
+    [ObservableProperty]
+    private int _planCount;
+
+    [ObservableProperty]
+    private int _finishedCount;
+
+    [ObservableProperty]
+    private string _orderNo = "Null";
+
+    public double Percent
     {
-        get => _machineCount;
-        set => SetField(ref _machineCount, value);
+        get
+        {
+            if (PlanCount == 0)
+                return 0;
+            return Math.Round(FinishedCount * 100.0 / PlanCount, 2);
+        }
     }
 
-    private string _productCount = "Null";
-    public string ProductCount
+    public Brush StatusColor
     {
-        get => _productCount;
-        set => SetField(ref _productCount, value);
-    }
-
-    private string _failuresCount = "Null";
-    public string FailuresCount
-    {
-        get => _failuresCount;
-        set => SetField(ref _failuresCount, value);
+        get
+        {
+            return Status switch
+            {
+                nameof(MachineStatusEnum.Working) => Brushes.Green,
+                nameof(MachineStatusEnum.Waiting) => Brushes.Yellow,
+                nameof(MachineStatusEnum.Wrong) => Brushes.Red,
+                nameof(MachineStatusEnum.Stop) => Brushes.Purple,
+                _ => Brushes.Gray,
+            };
+        }
     }
 }

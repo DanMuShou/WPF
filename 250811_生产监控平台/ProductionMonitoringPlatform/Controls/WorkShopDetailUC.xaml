@@ -1,0 +1,161 @@
+﻿<UserControl
+  x:Class="ProductionMonitoringPlatform.Controls.WorkShopDetailUC"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:cot="clr-namespace:ProductionMonitoringPlatform.Controls"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:vm="clr-namespace:ProductionMonitoringPlatform.ViewModels"
+  d:DataContext="{d:DesignInstance Type=vm:MainWindowViewModel}"
+  d:DesignHeight="900"
+  d:DesignWidth="1600"
+  mc:Ignorable="d"
+>
+  <UserControl.Resources>
+    <Style TargetType="RadioButton">
+      <Setter Property="Height" Value="22" />
+      <Setter Property="Width" Value="50" />
+      <Setter Property="Background" Value="#ddd" />
+      <Setter Property="Foreground" Value="#555" />
+      <Setter Property="FontSize" Value="11" />
+      <Setter Property="BorderBrush" Value="#3fff" />
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="RadioButton">
+            <Border Background="{TemplateBinding Background}">
+              <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Border>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+      <Style.Triggers>
+        <Trigger Property="IsChecked" Value="True">
+          <Setter Property="Background" Value="DarkOrange" />
+          <Setter Property="Foreground" Value="White" />
+        </Trigger>
+      </Style.Triggers>
+    </Style>
+  </UserControl.Resources>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="50" />
+      <RowDefinition />
+    </Grid.RowDefinitions>
+    <Border Grid.Row="0" Background="#2000" />
+    <Border Grid.Row="1" Background="#2000" />
+    <!--  第一行  -->
+    <Button
+      Grid.Row="0"
+      Width="80"
+      Height="28"
+      Margin="16,0"
+      HorizontalAlignment="Left"
+      VerticalAlignment="Center"
+      Command="{Binding GoBackCommand}"
+      Content="返回"
+      Style="{StaticResource BtnIconStyle}"
+    />
+    <StackPanel
+      Grid.Row="0"
+      Margin="16,0"
+      HorizontalAlignment="Right"
+      VerticalAlignment="Center"
+      Orientation="Horizontal"
+    >
+      <TextBlock VerticalAlignment="Center" Foreground="White" Text="机台状态: " />
+      <RadioButton Content="全部" IsChecked="True" />
+      <RadioButton Content="作业" />
+      <RadioButton Content="待机" />
+      <RadioButton Content="故障" />
+      <RadioButton Content="停机" />
+    </StackPanel>
+    <!--  第二行  -->
+    <ScrollViewer Grid.Row="1" Margin="8,4" VerticalScrollBarVisibility="Hidden">
+      <ItemsControl Margin="0,4" ItemsSource="{Binding MachineModelList}">
+        <ItemsControl.ItemsPanel>
+          <ItemsPanelTemplate>
+            <UniformGrid Columns="5" />
+          </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <Border
+              Height="260"
+              Margin="8,4"
+              Padding="16,4"
+              Background="#4444"
+              BorderBrush="#9999"
+              BorderThickness="0,1,0,0"
+            >
+              <Grid TextBlock.FontSize="11">
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="30" />
+                  <RowDefinition />
+                  <RowDefinition Height="22" />
+                  <RowDefinition Height="22" />
+                  <RowDefinition Height="22" />
+                </Grid.RowDefinitions>
+                <!--  第一行  -->
+                <TextBlock Grid.Row="0" VerticalAlignment="Center" Text="{Binding MachineName}" />
+                <StackPanel
+                  Grid.Row="0"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Center"
+                  Orientation="Horizontal"
+                >
+                  <Rectangle
+                    Width="7"
+                    Height="7"
+                    Margin="8,0"
+                    HorizontalAlignment="Center"
+                    Fill="{Binding StatusColor}"
+                  />
+                  <TextBlock
+                    FontSize="10"
+                    Foreground="{Binding StatusColor}"
+                    Text="{Binding Status}"
+                  />
+                </StackPanel>
+                <!--  第二行  -->
+                <cot:RingUc Grid.Row="1" Margin="30" PercentValue="{Binding Percent}" />
+                <!--  第三行  -->
+                <StackPanel Grid.Row="2" VerticalAlignment="Center" Orientation="Horizontal">
+                  <TextBlock
+                    Margin="0,0,8,0"
+                    VerticalAlignment="Center"
+                    Foreground="#5fff"
+                    Text="任务状态: "
+                  />
+                  <Label
+                    Padding="5,1"
+                    BorderBrush="{Binding StatusColor}"
+                    BorderThickness="1"
+                    Content="{Binding Status}"
+                    Foreground="{Binding StatusColor}"
+                  />
+                </StackPanel>
+                <TextBlock Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center">
+                  <Hyperlink Foreground="#5fff" TextDecorations="None">[详情]</Hyperlink>
+                </TextBlock>
+                <!--  第四行  -->
+                <StackPanel Grid.Row="3" VerticalAlignment="Center" Orientation="Horizontal">
+                  <TextBlock Margin="0,0,8,0" Foreground="#5fff" Text="任务进度: " />
+                  <TextBlock>
+                    <Run Text="{Binding FinishedCount}" />
+                    <Run Text=" / " />
+                    <Run Text="{Binding PlanCount}" />
+                  </TextBlock>
+                </StackPanel>
+                <!--  第五行  -->
+                <StackPanel Grid.Row="4" VerticalAlignment="Center" Orientation="Horizontal">
+                  <TextBlock Margin="0,0,8,0" Foreground="#5fff" Text="任务工单: " />
+                  <TextBlock Text="{Binding OrderNo}" />
+                </StackPanel>
+              </Grid>
+            </Border>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </ScrollViewer>
+  </Grid>
+</UserControl>

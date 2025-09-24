@@ -1,34 +1,21 @@
-﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+﻿using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media.Animation;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using ProductionMonitoringPlatform.Controls;
 using ProductionMonitoringPlatform.Models;
 
 namespace ProductionMonitoringPlatform.ViewModels;
 
-public class MainWindowViewModel : INotifyPropertyChanged
+public partial class MainWindowViewModel : ObservableObject
 {
-    public MainWindowViewModel()
-    {
-        _monitorUc = new MonitorUc();
-    }
+    [ObservableProperty]
+    private UserControl _monitorUc = new MonitorUc();
 
-    private MonitorUc _monitorUc;
-
-    /// <summary>
-    /// 获取或设置监控用户控件实例
-    /// </summary>
-    /// <remarks>
-    /// 当值发生更改时会触发PropertyChanged事件通知
-    /// </remarks>
-    public MonitorUc MonitorUc
-    {
-        get => _monitorUc;
-        set => SetField(ref _monitorUc, value);
-    }
-
+    #region 公共属性
     public TimeStrModel TimeStrModel { get; } = new();
-    public MachineModel MachineModel { get; } = new();
+    public CapacityModel CapacityModel { get; } = new();
 
     public List<EnvironmentModel> EnvironmentModelList { get; } =
     [
@@ -128,19 +115,112 @@ public class MainWindowViewModel : INotifyPropertyChanged
         },
     ];
 
-    #region 通知接口实现
-    public event PropertyChangedEventHandler? PropertyChanged;
+    public List<WorkShopModel> WorkShopLists { get; } =
+    [
+        new()
+        {
+            WorkShopName = "Null1",
+            WorkingCount = 1,
+            WaitCount = 2,
+            WrongCount = 3,
+            StopCount = 4,
+        },
+        new()
+        {
+            WorkShopName = "Null2",
+            WorkingCount = 0,
+            WaitCount = 0,
+            WrongCount = 0,
+            StopCount = 0,
+        },
+        new()
+        {
+            WorkShopName = "Null3",
+            WorkingCount = 0,
+            WaitCount = 0,
+            WrongCount = 0,
+            StopCount = 0,
+        },
+        new()
+        {
+            WorkShopName = "Null4",
+            WorkingCount = 0,
+            WaitCount = 0,
+            WrongCount = 0,
+            StopCount = 0,
+        },
+    ];
 
-    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null) =>
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    public List<MachineModel> MachineModelList { get; } = [];
 
-    private bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
+    #endregion
+
+    public MainWindowViewModel()
     {
-        if (EqualityComparer<T>.Default.Equals(field, value))
-            return false;
-        field = value;
-        OnPropertyChanged(propertyName);
-        return true;
+        var radom = new Random();
+        var status = Enum.GetValues(typeof(MachineStatusEnum)).Cast<MachineStatusEnum>().ToList();
+        for (var i = 0; i < 20; i++)
+        {
+            var plant = radom.Next(100, 1000);
+            var finished = radom.Next(0, plant);
+            var index = radom.Next(status.Count);
+            MachineModelList.Add(
+                new MachineModel()
+                {
+                    MachineName = $"Null {i + 1}",
+                    PlanCount = plant,
+                    FinishedCount = finished,
+                    Status = status[index].ToString(),
+                    OrderNo = "100Null",
+                }
+            );
+        }
     }
+
+    #region 命令
+
+    [RelayCommand]
+    private void ShowDetailUc()
+    {
+        var workShopDetailUc = new WorkShopDetailUC();
+        MonitorUc = workShopDetailUc;
+
+        var animationTime = new Duration(TimeSpan.FromMilliseconds(200));
+
+        // 位移动画
+        var thicknessAnimation = new ThicknessAnimation(
+            new Thickness(0, 50, 0, -50),
+            new Thickness(0, 0, 0, 0),
+            animationTime
+        );
+        // 透明度动画
+        var opacityAnimation = new DoubleAnimation(0, 1, animationTime);
+
+        // 设置动画目标
+        Storyboard.SetTarget(thicknessAnimation, workShopDetailUc);
+        Storyboard.SetTarget(opacityAnimation, workShopDetailUc);
+
+        // 设置动画属性
+        Storyboard.SetTargetProperty(
+            thicknessAnimation,
+            new PropertyPath(nameof(workShopDetailUc.Margin))
+        );
+        Storyboard.SetTargetProperty(
+            opacityAnimation,
+            new PropertyPath(nameof(workShopDetailUc.Opacity))
+        );
+
+        var storyboard = new Storyboard();
+        storyboard.Children.Add(thicknessAnimation);
+        storyboard.Children.Add(opacityAnimation);
+        storyboard.Begin();
+    }
+
+    [RelayCommand]
+    private void GoBack()
+    {
+        MonitorUc = new MonitorUc();
+    }
+
     #endregion
 }

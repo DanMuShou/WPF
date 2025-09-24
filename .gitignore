@@ -112,3 +112,11 @@ node_modules/
 
 # Thumbs.db
 Thumbs.db
+
+# CSharpier
+.csharpierrc
+.csharpierrc.json
+.csharpierrc.yaml
+.csharpierrc.yml
+.csharpier/
+.csharpier-root
