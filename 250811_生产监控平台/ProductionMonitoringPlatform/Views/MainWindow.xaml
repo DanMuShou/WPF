@@ -1,5 +1,6 @@
 ﻿<Window
-  x:Class="ProductionMonitoringPlatform.MainWindow"
+  x:Class="ProductionMonitoringPlatform.Views.MainWindow"
+  x:Name="Window"
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -46,7 +47,7 @@
           <ColumnDefinition Width="Auto" />
           <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <Image Grid.Column="0" Margin="0,8,16,8" Source="Resources/Images/Logo.png" />
+        <Image Grid.Column="0" Margin="0,8,16,8" Source="../Resources/Images/Logo.png" />
         <StackPanel Grid.Column="1" Margin="0,8,0,0">
           <TextBlock FontSize="16" Text="生产监控平台" />
           <TextBlock Text="这是副标题" />
@@ -63,18 +64,24 @@
             Orientation="Horizontal"
             WindowChrome.IsHitTestVisibleInChrome="True"
           >
-            <Button Click="BtnMinimize_OnClick" Style="{StaticResource BtnOperate}">
-              <Image Margin="8" Source="Resources/Images/ic_screenshot_line.png" />
+            <Button
+              Command="{Binding ElementName=Window, Path=MinimizeWindowCommand}"
+              Style="{StaticResource BtnOperate}"
+            >
+              <Image Margin="8" Source="../Resources/Images/ic_screenshot_line.png" />
             </Button>
-            <Button Click="BtnMaximize_OnCLick" Style="{StaticResource BtnOperate}">
-              <Image Margin="8" Source="Resources/Images/ic_screenshot_rectangle.png" />
+            <Button
+              Command="{Binding ElementName=Window, Path=MaximizeWindowCommand}"
+              Style="{StaticResource BtnOperate}"
+            >
+              <Image Margin="8" Source="../Resources/Images/ic_screenshot_rectangle.png" />
             </Button>
             <Button
               Background="DarkRed"
-              Click="BtnCloseWindows_OnClick"
+              Command="{Binding ElementName=Window, Path=CloseWindowCommand}"
               Style="{StaticResource BtnOperate}"
             >
-              <Image Margin="8" Source="Resources/Images/ic_public_cancel_filled.png" />
+              <Image Margin="8" Source="../Resources/Images/ic_public_cancel_filled.png" />
             </Button>
           </StackPanel>
           <Border

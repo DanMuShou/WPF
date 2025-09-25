@@ -185,7 +185,7 @@ public partial class MainWindowViewModel : ObservableObject
         var workShopDetailUc = new WorkShopDetailUC();
         MonitorUc = workShopDetailUc;
 
-        var animationTime = new Duration(TimeSpan.FromMilliseconds(200));
+        var animationTime = new Duration(TimeSpan.FromSeconds(0.5));
 
         // 位移动画
         var thicknessAnimation = new ThicknessAnimation(
