@@ -1,5 +1,6 @@
 ﻿<UserControl
   x:Class="ProductionMonitoringPlatform.Controls.MonitorUc"
+  x:Name="MonitorUserControl"
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,7 +8,7 @@
   xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:vm="clr-namespace:ProductionMonitoringPlatform.ViewModels"
-  x:Name="MonitorUserControl"
+  xmlns:views="clr-namespace:ProductionMonitoringPlatform.Views"
   d:DataContext="{d:DesignInstance Type=vm:MainWindowViewModel}"
   d:DesignHeight="1000"
   d:DesignWidth="1000"
@@ -192,6 +193,7 @@
         Width="75"
         Height="30"
         Content="配置"
+        Command="{Binding RelativeSource={RelativeSource AncestorType=views:MainWindow}, Path=ShowSettingWindowCommand}"
         Style="{StaticResource BtnIconStyle}"
       >
         <Button.Tag>

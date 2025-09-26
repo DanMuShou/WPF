@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ProductionMonitoringPlatform.Controls;
 using ProductionMonitoringPlatform.Models;
+using ProductionMonitoringPlatform.Services;
 
 namespace ProductionMonitoringPlatform.ViewModels;
 
@@ -155,6 +156,8 @@ public partial class MainWindowViewModel : ObservableObject
 
     #endregion
 
+    private ModebusServer _modbusService = new();
+
     public MainWindowViewModel()
     {
         var radom = new Random();
@@ -174,6 +177,26 @@ public partial class MainWindowViewModel : ObservableObject
                     OrderNo = "100Null",
                 }
             );
+        }
+        Task.Run(UpdateEnvironmentData);
+    }
+
+    private async Task UpdateEnvironmentData()
+    {
+        while (true)
+        {
+            try
+            {
+                _modbusService.GetEnvironmentModelData();
+                await Task.Delay(100);
+            }
+            catch (Exception ex)
+            {
+                // 记录异常信息以便调试
+                Console.WriteLine($"UpdateEnvironmentData error: {ex.Message}");
+                // 可选择继续循环或根据需要处理异常
+                await Task.Delay(1000); // 出错后等待更长时间再重试
+            }
         }
     }
 

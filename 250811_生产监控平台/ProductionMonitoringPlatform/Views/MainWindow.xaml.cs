@@ -18,17 +18,6 @@ public partial class MainWindow : Window
     protected override void OnInitialized(EventArgs e)
     {
         base.OnInitialized(e);
-        Dispatcher.BeginInvoke(
-            new Action(() =>
-            {
-                var viewModel = DataContext as MainWindowViewModel;
-                if (viewModel?.ShowDetailUcCommand != null)
-                {
-                    viewModel.ShowDetailUcCommand.Execute(null);
-                }
-            }),
-            System.Windows.Threading.DispatcherPriority.Loaded
-        );
     }
 
     #region 窗口状态事件
@@ -44,6 +33,13 @@ public partial class MainWindow : Window
 
     [RelayCommand]
     private void CloseWindow() => Close();
+
+    [RelayCommand]
+    private void ShowSettingWindow()
+    {
+        var settingWindow = new SettingWindow() { Owner = this };
+        settingWindow.ShowDialog();
+    }
 
     #endregion
 }
