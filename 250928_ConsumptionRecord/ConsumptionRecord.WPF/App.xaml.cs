@@ -16,6 +16,11 @@ public partial class App : PrismApplication
     protected override void RegisterTypes(IContainerRegistry containerRegistry)
     {
         containerRegistry.RegisterDialog<LoginUc, LoginUcViewModel>();
+
+        containerRegistry.RegisterForNavigation<MemoUc, MemoUcViewModel>();
+        containerRegistry.RegisterForNavigation<HomeUc, HomeUcViewModel>();
+        containerRegistry.RegisterForNavigation<ConsumptionUc, ConsumptionUcViewModel>();
+        containerRegistry.RegisterForNavigation<SettingUc, SettingUcViewModel>();
     }
 
     /// <summary>
@@ -30,18 +35,21 @@ public partial class App : PrismApplication
 
     protected override void OnInitialized()
     {
-        var dialog = Container.Resolve<IDialogService>();
-        dialog.ShowDialog(
-            nameof(LoginUc),
-            callback =>
-            {
-                if (callback.Result != ButtonResult.OK)
-                {
-                    Environment.Exit(0);
-                    return;
-                }
-                base.OnInitialized();
-            }
-        );
+        base.OnInitialized();
+
+        // TODO : 登录
+        // var dialog = Container.Resolve<IDialogService>();
+        // dialog.ShowDialog(
+        //     nameof(LoginUc),
+        //     callback =>
+        //     {
+        //         if (callback.Result != ButtonResult.OK)
+        //         {
+        //             Environment.Exit(0);
+        //             return;
+        //         }
+        //         base.OnInitialized();
+        //     }
+        // );
     }
 }

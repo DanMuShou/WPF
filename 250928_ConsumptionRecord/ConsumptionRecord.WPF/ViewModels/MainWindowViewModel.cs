@@ -1,25 +1,75 @@
 ﻿using System.Windows.Controls;
+using ConsumptionRecord.WPF.Models;
+using ConsumptionRecord.WPF.Views;
+using MaterialDesignThemes.Wpf;
 
 namespace ConsumptionRecord.WPF.ViewModels;
 
 public class MainWindowViewModel : BindableBase
 {
-    public MainWindowViewModel()
+    #region 属性
+
+    private List<LeftMenuInfo> _leftMenuInfos =
+    [
+        new(PackIconKind.Home, "首页", nameof(HomeUc)),
+        new(PackIconKind.CurrencyUsd, "消费记录", nameof(ConsumptionUc)),
+        new(PackIconKind.NotebookPlus, "备忘录", nameof(MemoUc)),
+        new(PackIconKind.Cog, "设置", nameof(SettingUc)),
+    ];
+
+    public List<LeftMenuInfo> LeftMenuInfos
     {
-        ShowContentCommand = new DelegateCommand<string>(ShowContentFunc);
+        get => _leftMenuInfos;
+        set => SetProperty(ref _leftMenuInfos, value);
     }
 
-    private UserControl _showControl;
-    public UserControl ShowControl
+    #endregion
+
+    #region Command
+
+    public DelegateCommand<LeftMenuInfo> NavigateCommand { get; set; }
+    public DelegateCommand GoForwardCommand { get; set; }
+    public DelegateCommand GoBackCommand { get; set; }
+
+    #endregion
+
+    private readonly IRegionManager _regionManager;
+    private IRegionNavigationJournal _journal;
+
+    public MainWindowViewModel(IRegionManager regionManager)
     {
-        get => _showControl;
-        set => SetProperty(ref _showControl, value);
+        _regionManager = regionManager;
+        NavigateCommand = new DelegateCommand<LeftMenuInfo>(Navigate);
+        GoForwardCommand = new DelegateCommand(GoNext);
+        GoBackCommand = new DelegateCommand(GoBack);
     }
 
-    public DelegateCommand<string> ShowContentCommand { get; set; }
-
-    private void ShowContentFunc(string name)
+    private void Navigate(LeftMenuInfo info)
     {
-        Console.WriteLine(name);
+        if (string.IsNullOrWhiteSpace(info.ViewName))
+            return;
+
+        const string regionName = "MainViewRegion";
+        if (_regionManager.Regions.ContainsRegionWithName(regionName))
+        {
+            _regionManager
+                .Regions[regionName]
+                .RequestNavigate(
+                    info.ViewName,
+                    result => _journal = result.Context.NavigationService.Journal
+                );
+        }
+    }
+
+    private void GoNext()
+    {
+        if (_journal is { CanGoForward: true })
+            _journal.GoForward();
+    }
+
+    private void GoBack()
+    {
+        if (_journal is { CanGoBack: true })
+            _journal.GoBack();
     }
 }

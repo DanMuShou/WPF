@@ -1,7 +1,5 @@
 ﻿using ConsumptionRecord.Data.Entities;
 using ConsumptionRecord.Data.Infos;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ConsumptionRecord.Domain.Context;
