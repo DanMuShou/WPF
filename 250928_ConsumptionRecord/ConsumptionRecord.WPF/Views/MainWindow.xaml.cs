@@ -1,4 +1,7 @@
 ﻿using System.Windows;
+using ConsumptionRecord.WPF.Models;
+using ConsumptionRecord.WPF.ViewModels;
+using MaterialDesignThemes.Wpf;
 using Prism.Commands;
 
 namespace ConsumptionRecord.WPF.Views;

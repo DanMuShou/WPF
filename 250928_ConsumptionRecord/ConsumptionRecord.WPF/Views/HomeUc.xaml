@@ -29,7 +29,7 @@
       <Run FontSize="24" Text="{Binding CurrentTime, Converter={StaticResource WeekConverter}}" />
     </TextBlock>
     <!--  ROW2 卡片  -->
-    <ItemsControl Grid.Row="1" Margin="-8,8,-8,0" ItemsSource="{Binding StatePanelInfos}">
+    <ItemsControl Grid.Row="1" Margin="-8,16,-8,0" ItemsSource="{Binding StatePanelInfos}">
       <ItemsControl.ItemsPanel>
         <ItemsPanelTemplate>
           <UniformGrid Columns="4" />
@@ -38,6 +38,46 @@
       <ItemsControl.ItemTemplate>
         <DataTemplate>
           <Border Margin="8,0" Background="{Binding BackColor}" CornerRadius="10,10,0,10">
+            <Border.Style>
+              <Style TargetType="Border">
+                <Setter Property="RenderTransform">
+                  <Setter.Value>
+                    <TranslateTransform />
+                  </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                  <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Effect">
+                      <Setter.Value>
+                        <DropShadowEffect BlurRadius="8" ShadowDepth="1" Color="#999999" />
+                      </Setter.Value>
+                    </Setter>
+                    <Trigger.EnterActions>
+                      <BeginStoryboard>
+                        <Storyboard>
+                          <DoubleAnimation
+                            Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+                            To="-5"
+                            Duration="0:0:0.2"
+                          />
+                        </Storyboard>
+                      </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                      <BeginStoryboard>
+                        <Storyboard>
+                          <DoubleAnimation
+                            Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+                            To="0"
+                            Duration="0:0:0.2"
+                          />
+                        </Storyboard>
+                      </BeginStoryboard>
+                    </Trigger.ExitActions>
+                  </Trigger>
+                </Style.Triggers>
+              </Style>
+            </Border.Style>
             <Grid>
               <StackPanel Margin="16,8">
                 <ui:PackIcon Width="32" Height="32" Kind="{Binding Icon}" />
@@ -68,7 +108,7 @@
       </ItemsControl.ItemTemplate>
     </ItemsControl>
     <!--  ROW3 内容  -->
-    <Grid Grid.Row="2" Margin="0,8">
+    <Grid Grid.Row="2" Margin="0,16">
       <Grid.ColumnDefinitions>
         <ColumnDefinition />
         <ColumnDefinition />
@@ -80,13 +120,47 @@
             <RowDefinition Height="Auto" />
             <RowDefinition />
           </Grid.RowDefinitions>
-          <TextBlock
-            Margin="8,0"
-            VerticalAlignment="Center"
+          <TextBlock Grid.Row="0" Margin="8,0" VerticalAlignment="Center" Text="消费记录" />
+          <Button
             Grid.Row="0"
-            Text="消费记录"
-          ></TextBlock>
-          <ListBox Grid.Row="1"></ListBox>
+            Width="30"
+            Height="30"
+            Margin="4,4"
+            HorizontalAlignment="Right"
+            Style="{StaticResource MaterialDesignFloatingActionSecondaryButton}"
+          >
+            <ui:PackIcon Kind="Add" />
+          </Button>
+          <ListBox
+            Grid.Row="1"
+            Margin="0,4"
+            HorizontalContentAlignment="Stretch"
+            ItemsSource="{Binding WaitInfos}"
+            ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+          >
+            <ListBox.ItemTemplate>
+              <DataTemplate>
+                <Grid>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                  </Grid.ColumnDefinitions>
+                  <StackPanel Grid.Column="0">
+                    <StackPanel Orientation="Horizontal">
+                      <TextBlock FontSize="16" FontWeight="Bold" Text="{Binding Title}" />
+                      <TextBlock
+                        Margin="16,0"
+                        VerticalAlignment="Center"
+                        Text="{Binding Time, Converter={StaticResource WeekConverter}, ConverterParameter=YMD}"
+                      />
+                    </StackPanel>
+                    <TextBlock Text="{Binding Content}" />
+                  </StackPanel>
+                  <ToggleButton Grid.Column="1" />
+                </Grid>
+              </DataTemplate>
+            </ListBox.ItemTemplate>
+          </ListBox>
         </Grid>
       </Border>
       <!--  ROW3-COL2 备忘录  -->
@@ -96,7 +170,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition />
           </Grid.RowDefinitions>
-          <TextBlock Margin="8,0" VerticalAlignment="Center" Grid.Row="0" Text="备忘录"></TextBlock>
+          <TextBlock Grid.Row="0" Margin="8,0" VerticalAlignment="Center" Text="备忘录" />
           <Button
             Grid.Row="0"
             Width="30"
@@ -105,9 +179,38 @@
             HorizontalAlignment="Right"
             Style="{StaticResource MaterialDesignFloatingActionSecondaryButton}"
           >
-            <ui:PackIcon Kind="Add"></ui:PackIcon>
+            <ui:PackIcon Kind="Add" />
           </Button>
-          <ListBox Grid.Row="1"></ListBox>
+          <ListBox
+            Grid.Row="1"
+            Margin="0,4"
+            HorizontalContentAlignment="Stretch"
+            ItemsSource="{Binding MemoInfos}"
+            ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+          >
+            <ListBox.ItemTemplate>
+              <DataTemplate>
+                <Grid>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                  </Grid.ColumnDefinitions>
+                  <StackPanel Grid.Column="0">
+                    <StackPanel Orientation="Horizontal">
+                      <TextBlock FontSize="16" FontWeight="Bold" Text="{Binding Title}" />
+                      <TextBlock
+                        Margin="16,0"
+                        VerticalAlignment="Center"
+                        Text="{Binding Time, Converter={StaticResource WeekConverter}, ConverterParameter=YMD}"
+                      />
+                    </StackPanel>
+                    <TextBlock Text="{Binding Content}" />
+                  </StackPanel>
+                  <ToggleButton Grid.Column="1" />
+                </Grid>
+              </DataTemplate>
+            </ListBox.ItemTemplate>
+          </ListBox>
         </Grid>
       </Border>
     </Grid>

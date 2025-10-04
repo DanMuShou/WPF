@@ -2,9 +2,9 @@
 
 namespace ConsumptionRecord.WPF.Views;
 
-public partial class ConsumptionUc : UserControl
+public partial class PersonalUc : UserControl
 {
-    public ConsumptionUc()
+    public PersonalUc()
     {
         InitializeComponent();
     }

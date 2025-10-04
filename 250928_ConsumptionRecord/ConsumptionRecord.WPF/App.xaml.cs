@@ -19,8 +19,12 @@ public partial class App : PrismApplication
 
         containerRegistry.RegisterForNavigation<MemoUc, MemoUcViewModel>();
         containerRegistry.RegisterForNavigation<HomeUc, HomeUcViewModel>();
-        containerRegistry.RegisterForNavigation<ConsumptionUc, ConsumptionUcViewModel>();
+        containerRegistry.RegisterForNavigation<WaitUc, WaitUcViewModel>();
         containerRegistry.RegisterForNavigation<SettingUc, SettingUcViewModel>();
+
+        containerRegistry.RegisterForNavigation<PersonalUc, PersonalUcViewModel>();
+        containerRegistry.RegisterForNavigation<AboutUsUc, AboutUsUcViewModel>();
+        containerRegistry.RegisterForNavigation<SystemSettingUc, SystemSettingUcViewModel>();
     }
 
     /// <summary>

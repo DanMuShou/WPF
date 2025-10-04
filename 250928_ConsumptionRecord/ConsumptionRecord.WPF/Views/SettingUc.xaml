@@ -5,12 +5,60 @@
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:local="clr-namespace:ConsumptionRecord.WPF.Views"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+  xmlns:prism="http://prismlibrary.com/"
+  xmlns:ui="http://materialdesigninxaml.net/winfx/xaml/themes"
+  xmlns:vm="clr-namespace:ConsumptionRecord.WPF.ViewModels"
+  xmlns:md="clr-namespace:ConsumptionRecord.WPF.Models"
+  d:DataContext="{d:DesignInstance Type=vm:SettingUcViewModel}"
   d:DesignHeight="300"
-  d:DesignWidth="300"
-  Background="Red"
+  d:DesignWidth="500"
+  prism:ViewModelLocator.AutoWireViewModel="True"
   mc:Ignorable="d"
 >
   <Grid>
-    <TextBlock FontSize="22" Text="设置" />
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"></RowDefinition>
+      <RowDefinition></RowDefinition>
+    </Grid.RowDefinitions>
+    <Border Grid.Row="0" BorderBrush="#999999" BorderThickness="0,0,0,2">
+      <TextBlock Margin="16,8" Text="设置" FontSize="24" FontWeight="Bold"></TextBlock>
+    </Border>
+    <Grid Grid.Row="1" Margin="36">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="1*"></ColumnDefinition>
+        <ColumnDefinition Width="4*"></ColumnDefinition>
+      </Grid.ColumnDefinitions>
+      <ListBox
+        Grid.Column="0"
+        x:Name="MenuListBox"
+        ItemContainerStyle="{StaticResource LeftMenuStyle}"
+        ItemsSource="{Binding LeftMenuInfos}"
+      >
+        <i:Interaction.Triggers>
+          <i:EventTrigger EventName="SelectionChanged">
+            <i:InvokeCommandAction
+              Command="{Binding NavigateCommand}"
+              CommandParameter="{Binding ElementName=MenuListBox, Path=SelectedItem}"
+            />
+          </i:EventTrigger>
+        </i:Interaction.Triggers>
+        <ListBox.ItemTemplate>
+          <DataTemplate DataType="{x:Type md:LeftMenuInfo}">
+            <StackPanel
+              HorizontalAlignment="Stretch"
+              VerticalAlignment="Center"
+              Orientation="Horizontal"
+            >
+              <ui:PackIcon Margin="16,0" Kind="{Binding Icon}" />
+              <TextBlock Text="{Binding MenuName}" />
+            </StackPanel>
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+      <Border Background="Aqua" Grid.Column="1">
+        <ContentControl prism:RegionManager.RegionName="SettingUcRegion" />
+      </Border>
+    </Grid>
   </Grid>
 </UserControl>

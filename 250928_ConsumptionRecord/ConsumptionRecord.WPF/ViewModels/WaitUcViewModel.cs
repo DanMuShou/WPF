@@ -2,45 +2,45 @@
 
 namespace ConsumptionRecord.WPF.ViewModels;
 
-public class MemoUcViewModel : BindableBase
+public class WaitUcViewModel : BindableBase
 {
     #region 属性
-    private List<MemoInfo> _memoInfos;
-    public List<MemoInfo> MemoInfos
+    private List<WaitInfo> _waitInfos;
+    public List<WaitInfo> WaitInfos
     {
-        get => _memoInfos;
-        set => SetProperty(ref _memoInfos, value);
+        get => _waitInfos;
+        set => SetProperty(ref _waitInfos, value);
     }
 
-    private bool _isShowAddMemo;
-    public bool IsShowAddMemo
+    private bool _isShowAddWait;
+    public bool IsShowAddWait
     {
-        get => _isShowAddMemo;
-        set => SetProperty(ref _isShowAddMemo, value);
+        get => _isShowAddWait;
+        set => SetProperty(ref _isShowAddWait, value);
     }
     #endregion
 
     #region 命令
-    public DelegateCommand ShowAddMemoCommand { get; set; }
+    public DelegateCommand ShowAddWaitCommand { get; set; }
     #endregion
 
 
-    public MemoUcViewModel()
+    public WaitUcViewModel()
     {
-        ShowAddMemoCommand = new DelegateCommand(ShowAddMemo);
-        CreateMemo();
+        ShowAddWaitCommand = new DelegateCommand(ShowAddWait);
+        CreateWait();
     }
 
-    private void CreateMemo()
+    private void CreateWait()
     {
-        _memoInfos = [];
+        _waitInfos = [];
         const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         const int length = 5;
         var random = new Random();
         for (var i = 0; i < 50; i++)
         {
-            _memoInfos.Add(
-                new MemoInfo()
+            _waitInfos.Add(
+                new WaitInfo
                 {
                     Title = new string(
                         Enumerable
@@ -60,5 +60,5 @@ public class MemoUcViewModel : BindableBase
         }
     }
 
-    private void ShowAddMemo() => IsShowAddMemo = true;
+    private void ShowAddWait() => IsShowAddWait = true;
 }

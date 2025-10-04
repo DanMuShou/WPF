@@ -8,11 +8,10 @@ namespace ConsumptionRecord.WPF.ViewModels;
 public class MainWindowViewModel : BindableBase
 {
     #region 属性
-
     private List<LeftMenuInfo> _leftMenuInfos =
     [
         new(PackIconKind.Home, "首页", nameof(HomeUc)),
-        new(PackIconKind.CurrencyUsd, "消费记录", nameof(ConsumptionUc)),
+        new(PackIconKind.CurrencyUsd, "消费记录", nameof(WaitUc)),
         new(PackIconKind.NotebookPlus, "备忘录", nameof(MemoUc)),
         new(PackIconKind.Cog, "设置", nameof(SettingUc)),
     ];
@@ -22,15 +21,12 @@ public class MainWindowViewModel : BindableBase
         get => _leftMenuInfos;
         set => SetProperty(ref _leftMenuInfos, value);
     }
-
     #endregion
 
     #region Command
-
     public DelegateCommand<LeftMenuInfo> NavigateCommand { get; set; }
     public DelegateCommand GoForwardCommand { get; set; }
     public DelegateCommand GoBackCommand { get; set; }
-
     #endregion
 
     private readonly IRegionManager _regionManager;

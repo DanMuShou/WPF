@@ -5,12 +5,127 @@
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:local="clr-namespace:ConsumptionRecord.WPF.Views"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:ui="http://materialdesigninxaml.net/winfx/xaml/themes"
+  xmlns:prism="http://prismlibrary.com/"
+  xmlns:vm="clr-namespace:ConsumptionRecord.WPF.ViewModels"
+  d:DataContext="{d:DesignInstance Type=vm:MemoUcViewModel}"
   d:DesignHeight="300"
-  d:DesignWidth="300"
-  Background="Blue"
+  d:DesignWidth="500"
+  prism:ViewModelLocator.AutoWireViewModel="True"
   mc:Ignorable="d"
 >
-  <Grid>
-    <TextBlock FontSize="22" Text="备忘录" />
-  </Grid>
+  <ui:DialogHost>
+    <ui:DrawerHost IsRightDrawerOpen="{Binding IsShowAddMemo}">
+      <ui:DrawerHost.RightDrawerContent>
+        <Grid Margin="16">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+          </Grid.RowDefinitions>
+          <TextBlock FontSize="16" FontWeight="Bold" Grid.Row="0" Text="添加备忘录"></TextBlock>
+          <TextBox Margin="0,8" Grid.Row="1" ui:HintAssist.Hint="输入标题"></TextBox>
+          <TextBox
+            Width="280"
+            Grid.Row="2"
+            VerticalContentAlignment="Top"
+            TextWrapping="Wrap"
+            ui:HintAssist.Hint="输入内容"
+          ></TextBox>
+          <Button Margin="0,8,0,0" Grid.Row="3" Content="保存" />
+        </Grid>
+      </ui:DrawerHost.RightDrawerContent>
+      <Grid Margin="8">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto" />
+          <RowDefinition />
+        </Grid.RowDefinitions>
+        <!--  ROW1  -->
+        <Grid Grid.Row="0" Margin="16,4">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*" />
+            <ColumnDefinition />
+          </Grid.ColumnDefinitions>
+          <TextBox
+            Grid.Column="0"
+            VerticalAlignment="Center"
+            ui:HintAssist.Hint="搜索"
+            ui:TextFieldAssist.HasClearButton="True"
+          />
+          <Button
+            Grid.Column="1"
+            Command="{Binding ShowAddMemoCommand}"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Content="+ 添加备忘录"
+          />
+        </Grid>
+        <!--  ROW2  -->
+        <ScrollViewer
+          VerticalScrollBarVisibility="Hidden"
+          HorizontalScrollBarVisibility="Disabled"
+          Grid.Row="1"
+        >
+          <ItemsControl ItemsSource="{Binding MemoInfos}">
+            <ItemsControl.ItemsPanel>
+              <ItemsPanelTemplate>
+                <WrapPanel />
+              </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <ui:TransitioningContent OpeningEffect="{ui:TransitionEffect Kind=ExpandIn}">
+                  <Grid MinWidth="220" Height="180" MaxWidth="250" Margin="8">
+                    <Grid.RowDefinitions>
+                      <RowDefinition Height="Auto" />
+                      <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Border
+                      CornerRadius="16,16,0,16"
+                      Grid.Row="0"
+                      Background="#0075b0"
+                      Grid.RowSpan="2"
+                    ></Border>
+                    <ui:PopupBox
+                      Grid.Row="0"
+                      Margin="8"
+                      HorizontalAlignment="Right"
+                      Panel.ZIndex="1"
+                    ></ui:PopupBox>
+                    <TextBlock
+                      VerticalAlignment="Center"
+                      Grid.Row="0"
+                      Margin="16,8"
+                      FontWeight="Bold"
+                      Text="{Binding Title}"
+                    />
+                    <TextBlock Grid.Row="1" Margin="16,2" Text="{Binding Content}" />
+                    <Canvas Grid.Row="0" Grid.RowSpan="2" ClipToBounds="True">
+                      <Ellipse
+                        Canvas.Top="10"
+                        Canvas.Right="-50"
+                        Width="120"
+                        Height="120"
+                        Fill="White"
+                        Opacity="0.1"
+                      />
+                      <Ellipse
+                        Canvas.Top="80"
+                        Canvas.Right="-30"
+                        Width="120"
+                        Height="120"
+                        Fill="White"
+                        Opacity="0.1"
+                      />
+                    </Canvas>
+                  </Grid>
+                </ui:TransitioningContent>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </ScrollViewer>
+      </Grid>
+    </ui:DrawerHost>
+  </ui:DialogHost>
 </UserControl>
