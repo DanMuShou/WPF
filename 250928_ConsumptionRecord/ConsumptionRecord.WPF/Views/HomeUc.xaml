@@ -5,6 +5,7 @@
   xmlns:cvt="clr-namespace:ConsumptionRecord.WPF.Converter"
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
   xmlns:prism="http://prismlibrary.com/"
   xmlns:ui="http://materialdesigninxaml.net/winfx/xaml/themes"
   xmlns:vm="clr-namespace:ConsumptionRecord.WPF.ViewModels"
@@ -26,7 +27,9 @@
     <!--  ROW1 标头  -->
     <TextBlock Grid.Row="0">
       <Run FontSize="24" Text="您好, " />
-      <Run FontSize="24" Text="{Binding CurrentTime, Converter={StaticResource WeekConverter}}" />
+      <Run FontSize="24" Text="{Binding LoginName}" />
+      <Run FontSize="24" Text=". 今天是" />
+      <Run FontSize="24" Text="{Binding CloudTime, Converter={StaticResource WeekConverter}}" />
     </TextBlock>
     <!--  ROW2 卡片  -->
     <ItemsControl Grid.Row="1" Margin="-8,16,-8,0" ItemsSource="{Binding StatePanelInfos}">
@@ -38,6 +41,13 @@
       <ItemsControl.ItemTemplate>
         <DataTemplate>
           <Border Margin="8,0" Background="{Binding BackColor}" CornerRadius="10,10,0,10">
+            <Border.InputBindings>
+              <MouseBinding
+                MouseAction="LeftClick"
+                Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=DataContext.NavigateDetailCommand}"
+                CommandParameter="{Binding}"
+              ></MouseBinding>
+            </Border.InputBindings>
             <Border.Style>
               <Style TargetType="Border">
                 <Setter Property="RenderTransform">
@@ -120,13 +130,14 @@
             <RowDefinition Height="Auto" />
             <RowDefinition />
           </Grid.RowDefinitions>
-          <TextBlock Grid.Row="0" Margin="8,0" VerticalAlignment="Center" Text="消费记录" />
+          <TextBlock Grid.Row="0" Margin="8,0" VerticalAlignment="Center" Text="备忘录" />
           <Button
             Grid.Row="0"
             Width="30"
             Height="30"
             Margin="4,4"
             HorizontalAlignment="Right"
+            Command="{Binding ShowAddWaitDialogCommand}"
             Style="{StaticResource MaterialDesignFloatingActionSecondaryButton}"
           >
             <ui:PackIcon Kind="Add" />
@@ -138,6 +149,14 @@
             ItemsSource="{Binding WaitInfos}"
             ScrollViewer.HorizontalScrollBarVisibility="Hidden"
           >
+            <i:Interaction.Triggers>
+              <i:EventTrigger EventName="MouseDoubleClick">
+                <prism:InvokeCommandAction
+                  Command="{Binding ShowEditWaitDialogCommand}"
+                  CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBox} ,Path=SelectedItem}"
+                ></prism:InvokeCommandAction>
+              </i:EventTrigger>
+            </i:Interaction.Triggers>
             <ListBox.ItemTemplate>
               <DataTemplate>
                 <Grid>
@@ -156,7 +175,12 @@
                     </StackPanel>
                     <TextBlock Text="{Binding Content}" />
                   </StackPanel>
-                  <ToggleButton Grid.Column="1" />
+                  <ToggleButton
+                    IsChecked="{Binding IsDone}"
+                    Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBox}, Path=DataContext.ChangeWaitInfoCommand}"
+                    CommandParameter="{Binding}"
+                    Grid.Column="1"
+                  />
                 </Grid>
               </DataTemplate>
             </ListBox.ItemTemplate>

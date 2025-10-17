@@ -1,5 +1,4 @@
-﻿using System.Windows.Controls;
-using ConsumptionRecord.WPF.Models;
+﻿using ConsumptionRecord.WPF.Models;
 using ConsumptionRecord.WPF.Views;
 using MaterialDesignThemes.Wpf;
 
@@ -38,6 +37,24 @@ public class MainWindowViewModel : BindableBase
         NavigateCommand = new DelegateCommand<LeftMenuInfo>(Navigate);
         GoForwardCommand = new DelegateCommand(GoNext);
         GoBackCommand = new DelegateCommand(GoBack);
+    }
+
+    public void SetDefaultNavigation(string ucName, INavigationParameters? parameters = null)
+    {
+        if (string.IsNullOrWhiteSpace(ucName))
+            return;
+
+        const string regionName = "MainViewRegion";
+        if (_regionManager.Regions.ContainsRegionWithName(regionName))
+        {
+            _regionManager
+                .Regions[regionName]
+                .RequestNavigate(
+                    ucName,
+                    result => _journal = result.Context.NavigationService.Journal,
+                    parameters
+                );
+        }
     }
 
     private void Navigate(LeftMenuInfo info)

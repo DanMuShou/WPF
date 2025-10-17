@@ -1,5 +1,6 @@
-﻿<Window
+<Window
   x:Class="ConsumptionRecord.WPF.Views.MainWindow"
+  x:Name="Root"
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -9,7 +10,6 @@
   xmlns:prism="http://prismlibrary.com/"
   xmlns:ui="http://materialdesigninxaml.net/winfx/xaml/themes"
   xmlns:vm="clr-namespace:ConsumptionRecord.WPF.ViewModels"
-  x:Name="Root"
   Title="MainWindow"
   Width="1200"
   Height="700"
@@ -23,11 +23,7 @@
   <WindowChrome.WindowChrome>
     <WindowChrome GlassFrameThickness="0" />
   </WindowChrome.WindowChrome>
-  <ui:DialogHost
-    DialogTheme="Inherit"
-    Identifier="RootDialog"
-    SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}"
-  >
+  <ui:DialogHost DialogTheme="Inherit" Identifier="RootDialog">
     <ui:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
       <ui:DrawerHost.LeftDrawerContent>
         <DockPanel MinWidth="220">
@@ -35,17 +31,16 @@
             <Image Width="24" Height="24" Margin="0,16" Source="../Resources/Images/AppIco.ico" />
           </StackPanel>
           <ListBox
-            x:Name="MenuListBox"
             ItemContainerStyle="{StaticResource LeftMenuStyle}"
             ItemsSource="{Binding LeftMenuInfos}"
+            SelectionChanged="Selector_OnSelectionChanged"
           >
             <i:Interaction.Triggers>
               <i:EventTrigger EventName="SelectionChanged">
                 <i:InvokeCommandAction
                   Command="{Binding NavigateCommand}"
-                  CommandParameter="{Binding ElementName=MenuListBox, Path=SelectedItem}"
+                  CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBox}}}"
                 />
-                <i:InvokeCommandAction Command="{Binding ElementName=Root, Path=LeftMenuItemSelectCommand}" />
               </i:EventTrigger>
             </i:Interaction.Triggers>
             <ListBox.ItemTemplate>
@@ -76,14 +71,13 @@
               <ToggleButton
                 x:Name="MenuToggleButton"
                 AutomationProperties.Name="HamburgerToggleButton"
-                IsChecked="False"
+                IsChecked="True"
                 Style="{StaticResource MaterialDesignHamburgerToggleButton}"
               />
               <Button
                 Margin="24,0,0,0"
                 Command="{Binding GoBackCommand}"
-                Content="{ui:PackIcon Kind=ArrowLeft,
-                                                      Size=24}"
+                Content="{ui:PackIcon Kind=ArrowLeft, Size=24}"
                 Style="{StaticResource MaterialDesignFlatMidBgButton}"
                 ToolTip="返回"
               />

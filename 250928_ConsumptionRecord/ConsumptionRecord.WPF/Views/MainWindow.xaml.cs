@@ -1,8 +1,5 @@
-﻿using System.Windows;
-using ConsumptionRecord.WPF.Models;
-using ConsumptionRecord.WPF.ViewModels;
-using MaterialDesignThemes.Wpf;
-using Prism.Commands;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace ConsumptionRecord.WPF.Views;
 
@@ -15,7 +12,6 @@ public partial class MainWindow : Window
     public DelegateCommand MinWindowCommand { get; }
     public DelegateCommand MaxWindowCommand { get; }
     public DelegateCommand CloseWindowCommand { get; }
-    public DelegateCommand LeftMenuItemSelectCommand { get; }
     #endregion
 
     public MainWindow()
@@ -23,7 +19,6 @@ public partial class MainWindow : Window
         MinWindowCommand = new DelegateCommand(MinWindow);
         MaxWindowCommand = new DelegateCommand(MaxWindow);
         CloseWindowCommand = new DelegateCommand(CloseWindow);
-        LeftMenuItemSelectCommand = new DelegateCommand(LeftMenuItemSelect);
 
         InitializeComponent();
     }
@@ -36,5 +31,8 @@ public partial class MainWindow : Window
 
     private void CloseWindow() => Close();
 
-    private void LeftMenuItemSelect() => MenuToggleButton.IsChecked = false;
+    private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        MenuToggleButton.IsChecked = false;
+    }
 }

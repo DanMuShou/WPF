@@ -1,10 +1,10 @@
-﻿namespace ConsumptionRecord.WPF.Models;
+﻿namespace ConsumptionRecord.Data.Entities;
 
-public class WaitInfo
+public class Wait
 {
     public long Id { get; set; }
-    public DateTime Time { get; set; }
     public string Title { get; set; }
     public string Content { get; set; }
     public bool IsDone { get; set; }
+    public DateTime CreateTime { get; set; }
 }

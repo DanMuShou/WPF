@@ -1,5 +1,4 @@
 ﻿using ConsumptionRecord.Data.Entities;
-using ConsumptionRecord.Data.Infos;
 using Microsoft.EntityFrameworkCore;
 
 namespace ConsumptionRecord.Domain.Context;
@@ -10,6 +9,7 @@ public class ApplicationContext : DbContext
         : base(options) { }
 
     public DbSet<User> Users { get; set; }
+    public DbSet<Wait> Waits { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -22,7 +22,17 @@ public class ApplicationContext : DbContext
             entity.ToTable("T_Users");
             entity.HasKey(user => user.Id);
             entity.Property(e => e.Id).ValueGeneratedOnAdd();
-            entity.Property(e => e.CreatedDate).HasColumnType(PostgresqlStr.ColumnTimeName);
+        });
+
+        #endregion
+
+        #region Wait
+
+        modelBuilder.Entity<Wait>(entity =>
+        {
+            entity.ToTable("T_Waits");
+            entity.HasKey(wait => wait.Id);
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
         });
 
         #endregion

@@ -1,6 +1,11 @@
-﻿using System.Windows;
+﻿using System.Net.Http;
+using System.Windows;
+using ConsumptionRecord.WPF.Clients.ApiClient;
+using ConsumptionRecord.WPF.Services;
 using ConsumptionRecord.WPF.ViewModels;
+using ConsumptionRecord.WPF.ViewModels.Dialogs;
 using ConsumptionRecord.WPF.Views;
+using ConsumptionRecord.WPF.Views.Dialogs;
 
 namespace ConsumptionRecord.WPF;
 
@@ -25,6 +30,15 @@ public partial class App : PrismApplication
         containerRegistry.RegisterForNavigation<PersonalUc, PersonalUcViewModel>();
         containerRegistry.RegisterForNavigation<AboutUsUc, AboutUsUcViewModel>();
         containerRegistry.RegisterForNavigation<SystemSettingUc, SystemSettingUcViewModel>();
+
+        containerRegistry.RegisterForNavigation<AddWaitUc, AddWaitUcViewModel>();
+
+        containerRegistry.Register<DialogHostService>();
+
+        containerRegistry.RegisterSingleton<ApiClient>(provider => new ApiClient(
+            "https://localhost:7019",
+            new HttpClient()
+        ));
     }
 
     /// <summary>
@@ -39,21 +53,29 @@ public partial class App : PrismApplication
 
     protected override void OnInitialized()
     {
-        base.OnInitialized();
+        // base.OnInitialized();
 
-        // TODO : 登录
-        // var dialog = Container.Resolve<IDialogService>();
-        // dialog.ShowDialog(
-        //     nameof(LoginUc),
-        //     callback =>
-        //     {
-        //         if (callback.Result != ButtonResult.OK)
-        //         {
-        //             Environment.Exit(0);
-        //             return;
-        //         }
-        //         base.OnInitialized();
-        //     }
-        // );
+        var dialog = Container.Resolve<IDialogService>();
+        dialog.ShowDialog(
+            nameof(LoginUc),
+            callback =>
+            {
+                if (callback.Result != ButtonResult.OK)
+                {
+                    Environment.Exit(0);
+                    return;
+                }
+
+                if (Current.MainWindow.DataContext is MainWindowViewModel viewModel)
+                {
+                    var navigationParameters = new NavigationParameters();
+                    foreach (var key in callback.Parameters.Keys)
+                        navigationParameters.Add(key, callback.Parameters.GetValue<object>(key));
+
+                    viewModel.SetDefaultNavigation(nameof(HomeUc), navigationParameters);
+                    base.OnInitialized();
+                }
+            }
+        );
     }
 }

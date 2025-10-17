@@ -1,4 +1,3 @@
-using ConsumptionRecord.Api.Helpers.Mapping;
 using ConsumptionRecord.Domain.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -34,13 +33,13 @@ builder.Services.AddSwaggerGen(options =>
     );
 });
 
-builder.Services.AddAutoMapper(_ => { }, typeof(UserProfile));
+builder.Services.AddAutoMapper(cfg => { }, AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    // app.UseSwaggerUI();
 }
 app.UseHttpsRedirection();
 app.MapControllers();

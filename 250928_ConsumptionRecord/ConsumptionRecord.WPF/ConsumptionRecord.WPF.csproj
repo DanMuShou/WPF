@@ -8,6 +8,8 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="MaterialDesignThemes" Version="5.3.0-ci1132" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageReference Include="Prism.DryIoc" Version="9.0.537" />
   </ItemGroup>
   <ItemGroup>
@@ -16,5 +18,12 @@
   <ItemGroup>
     <None Remove="Resources\Images\AppIco.ico" />
     <Resource Include="Resources\Images\AppIco.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Dialogs\LoginUc.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <XamlRuntime>Wpf</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 </Project>

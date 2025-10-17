@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
 using ConsumptionRecord.WPF.Events;
 
-namespace ConsumptionRecord.WPF.Views;
+namespace ConsumptionRecord.WPF.Views.Dialogs;
 
 /// <summary>
 /// 登录用户控件类，负责处理登录界面的显示和消息订阅功能
